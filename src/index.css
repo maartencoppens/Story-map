@@ -134,3 +134,9 @@
     animation: scroll-delayed 1.6s ease-in-out infinite;
   }
 }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import ScrollHint from "../Components/Scrollhint";
+import Button from "../Components/Button";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -33,12 +34,7 @@ const Hero = () => {
         Wizarding World. Discover hidden chambers, legendary halls, and
         enchanted grounds like never before.
       </p>
-      <a
-        href="/map"
-        className="px-6 py-3 bg-blue-700 text-white rounded-2xl hover:bg-amber-700 transition"
-      >
-        Enter Hogwarts
-      </a>
+      <Button route="/map" label="Enter the Castle" />
       <ScrollHint />
     </div>
   );
