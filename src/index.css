@@ -181,34 +181,3 @@
     height: 100%;
   }
 }
-
-//Background particles
-.magic-particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: transparent;
-}
-
-.magic-particles::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
-  background: radial-gradient(
-    circle,
-    rgba(251, 191, 36, 0.8) 1px,
-    transparent 1px
-  );
-  background-size: 120px 120px;
-  opacity: 0.15;
-  animation: floatParticles 40s linear infinite;
-}
-
-@keyframes floatParticles {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-120px);
-  }
-}
