@@ -38,8 +38,49 @@
   }
 
   body {
-    @apply bg-slate-900 text-amber-50 font-serif;
+    @apply text-amber-50 font-serif;
     font-family: "EB Garamond", serif;
+    background: radial-gradient(
+        1200px 600px at 50% -200px,
+        rgba(59, 130, 246, 0.15),
+        transparent 60%
+      ),
+      linear-gradient(180deg, #020617 0%, #020617 100%);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -120%;
+    pointer-events: none;
+    z-index: 0;
+
+    background: radial-gradient(
+        circle,
+        rgba(251, 191, 36, 1) 1.5px,
+        transparent 1.5px
+      ),
+      radial-gradient(circle, rgba(251, 191, 36, 0.7) 1px, transparent 1px),
+      radial-gradient(circle, rgba(251, 191, 36, 0.5) 1px, transparent 1px);
+
+    background-size: 140px 160px, 220px 200px, 320px 280px;
+
+    background-position: 0 0, 80px 120px, 200px 60px;
+
+    opacity: 0.5;
+
+    animation: magicFloat 45s linear infinite,
+      magicPulse 6s ease-in-out infinite;
+  }
+
+  @keyframes magicPulse {
+    0%,
+    100% {
+      opacity: 0.14;
+    }
+    50% {
+      opacity: 0.22;
+    }
   }
 
   h1,
@@ -133,10 +174,41 @@
   .animate-scroll-delayed {
     animation: scroll-delayed 1.6s ease-in-out infinite;
   }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+//Background particles
+.magic-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.magic-particles::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: radial-gradient(
+    circle,
+    rgba(251, 191, 36, 0.8) 1px,
+    transparent 1px
+  );
+  background-size: 120px 120px;
+  opacity: 0.15;
+  animation: floatParticles 40s linear infinite;
+}
+
+@keyframes floatParticles {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-120px);
+  }
 }
