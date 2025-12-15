@@ -4,9 +4,18 @@
   @font-face {
     font-family: "Cinzel Decorative";
     font-style: normal;
-    font-weight: 400 700;
+    font-weight: 400;
     font-display: swap;
-    src: url(https://fonts.gstatic.com/s/cinzeldecorative/v16/daaCSScvJGqLYhG8nNt8KPPswUAPnh7URs1LaCec.woff2)
+    src: url(https://fonts.gstatic.com/s/cinzeldecorative/v19/daaCSScvJGqLYhG8nNt8KPPswUAPni7TTMxpazyD.woff2)
+      format("woff2");
+  }
+
+  @font-face {
+    font-family: "Cinzel Decorative";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/cinzeldecorative/v19/daaHSScvJGqLYhG8nNt8KPPswUAPniZoadlESTGplhXF.woff2)
       format("woff2");
   }
 
@@ -24,7 +33,7 @@
     font-style: normal;
     font-weight: 400 700;
     font-display: swap;
-    src: url(https://fonts.gstatic.com/s/ebgaramond/v27/SlGDmQSNjdsmc35JDF1K5E55YMjF_7DPuGi-6_RUA4V-e6yHgQ.woff2)
+    src: url(https://fonts.gstatic.com/s/ebgaramond/v32/SlGUmQSNjdsmc35JDF1K5GR1SDk_YAPI.woff2)
       format("woff2");
   }
 
