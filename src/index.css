@@ -38,7 +38,7 @@
   }
 
   body {
-    @apply bg-slate-950 text-amber-50 font-serif;
+    @apply bg-slate-900 text-amber-50 font-serif;
     font-family: "EB Garamond", serif;
   }
 
@@ -99,5 +99,38 @@
       ),
       linear-gradient(90deg, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
+  }
+
+  // Scroll hint animation
+  @keyframes scroll {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.65;
+    }
+    50% {
+      transform: translateY(10px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scroll-delayed {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.25;
+    }
+    50% {
+      transform: translateY(10px);
+      opacity: 0.55;
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 1.6s ease-in-out infinite;
+  }
+
+  .animate-scroll-delayed {
+    animation: scroll-delayed 1.6s ease-in-out infinite;
   }
 }
