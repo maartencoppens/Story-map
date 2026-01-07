@@ -2,7 +2,7 @@ import Card from "../Components/Card";
 
 const Explanation = () => {
   return (
-    <div className="mx-auto text-center px-4">
+    <div className="mx-auto flex flex-col items-center justify-center text-center px-4">
       <img
         src="/images/castle.svg"
         alt="Castle Illustration"

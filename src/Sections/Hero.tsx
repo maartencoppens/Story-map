@@ -24,7 +24,7 @@ const Hero = () => {
     <div className="">
       <div
         ref={sectionRef}
-        className="min-h-screen flex justify-center items-center flex-col gap-8 w-1/4 mx-auto text-center"
+        className="min-h-screen flex flex-col items-center justify-center gap-8 text-center"
       >
         <img
           src="/images/HP_Logo.png"
@@ -34,7 +34,7 @@ const Hero = () => {
         <h1 className="text-4xl font-bold magical-glow hero-title">
           Explore Hogwarts
         </h1>
-        <p className="text-lg text-amber-50/90">
+        <p className="text-lg text-amber-50/90 max-w-2xl">
           Step into an immersive 3D journey through the most magical castle in
           the Wizarding World. Discover hidden chambers, legendary halls, and
           enchanted grounds like never before.

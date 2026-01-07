@@ -1,7 +1,11 @@
 import { useGLTF } from "@react-three/drei";
 
-export default function Model() {
-  const { scene } = useGLTF("/3D-Model/Hogwarts-test-1.glb");
+type ModelProps = {
+  modelName: string;
+};
+
+export default function Model({ modelName }: ModelProps) {
+  const { scene } = useGLTF(`/3D-Model/${modelName}`);
 
   return (
     <group>
@@ -10,4 +14,5 @@ export default function Model() {
   );
 }
 
-useGLTF.preload("/3D-Model/Hogwarts-test-1.glb");
+useGLTF.preload("/3D-Model/Hogwarts.glb");
+useGLTF.preload("/3D-Model/Quidditch.glb");

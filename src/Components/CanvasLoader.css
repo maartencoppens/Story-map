@@ -1,0 +1,47 @@
+@layer utilities {
+  @keyframes loader-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loader-pulse {
+    0%,
+    100% {
+      opacity: 0.65;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes loader-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes loader-spark {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(8px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.9) translateY(-10px);
+    }
+  }
+}

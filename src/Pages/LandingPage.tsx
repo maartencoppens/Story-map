@@ -7,7 +7,7 @@ const LandingPage = () => {
   return (
     <>
       <Hero />
-      <div className="my-20 flex flex-col items-start gap-30">
+      <div className="py-20 flex flex-col items-center gap-30">
         <Explanation />
         <Features />
       </div>
