@@ -1,15 +1,21 @@
 import { useGLTF } from "@react-three/drei";
 
+type ModelName = "Hogwarts.glb" | "Quidditch.glb";
+
 type ModelProps = {
-  modelName: string;
+  modelName: ModelName;
 };
 
 export default function Model({ modelName }: ModelProps) {
   const { scene } = useGLTF(`/3D-Model/${modelName}`);
+  const position: Record<ModelName, [number, number, number]> = {
+    "Hogwarts.glb": [-3, -0.5, -1],
+    "Quidditch.glb": [-5, 0, -6],
+  };
 
   return (
     <group>
-      <primitive object={scene} scale={0.02} position={[-2, -0.5, 0]} />
+      <primitive object={scene} scale={0.02} position={position[modelName]} />
     </group>
   );
 }

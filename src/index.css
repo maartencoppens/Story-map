@@ -41,6 +41,11 @@
     @apply text-amber-50 font-serif;
     font-family: "EB Garamond", serif;
     background: linear-gradient(180deg, #020617 0%, #020617 100%);
+    cursor: url("/cursor/wand-cursor.png"), auto;
+  }
+
+  .magic-pointer {
+    cursor: url("/cursor/wand-cursor-pointer.png") 16 16, pointer;
   }
 
   :root {

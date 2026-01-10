@@ -1,6 +1,26 @@
-export default function Card({ text = "Content" }) {
+import type { ReactNode } from "react";
+
+type CardProps = {
+  text?: string;
+  className?: string;
+  children?: ReactNode;
+};
+
+export default function Card({
+  text = "Content",
+  className,
+  children,
+}: CardProps) {
+  const content = children ?? (
+    <p className="text-lg leading-relaxed text-amber-50/80">{text}</p>
+  );
+
   return (
-    <section className="relative mx-auto max-w-3xl px-6 py-10 flex-1 h-full">
+    <section
+      className={`relative mx-auto max-w-3xl px-6 py-10 flex-1 h-full ${
+        className ?? ""
+      }`}
+    >
       <div className="relative rounded-2xl bg-slate-950/40 backdrop-blur">
         {/* outer line */}
         <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/25" />
@@ -12,7 +32,7 @@ export default function Card({ text = "Content" }) {
 
         {/* content */}
         <div className="mt-8 w-full rounded-xl border border-amber-200/15 bg-amber-950/25 px-8 py-7">
-          <p className="text-lg leading-relaxed text-amber-50/80">{text}</p>
+          {content}
         </div>
       </div>
     </section>
