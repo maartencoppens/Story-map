@@ -6,8 +6,13 @@ type ModelProps = {
   modelName: ModelName;
 };
 
+const MODEL_URLS: Record<ModelName, string> = {
+  "Hogwarts.glb": "/3D-Model/Hogwarts.glb",
+  "Quidditch.glb": "/3D-Model/Quidditch.glb",
+};
+
 export default function Model({ modelName }: ModelProps) {
-  const { scene } = useGLTF(`/3D-Model/${modelName}`);
+  const { scene } = useGLTF(MODEL_URLS[modelName]);
   const position: Record<ModelName, [number, number, number]> = {
     "Hogwarts.glb": [-3, -0.5, -1],
     "Quidditch.glb": [-5, 0, -6],
@@ -20,5 +25,4 @@ export default function Model({ modelName }: ModelProps) {
   );
 }
 
-useGLTF.preload("/3D-Model/Hogwarts.glb");
-useGLTF.preload("/3D-Model/Quidditch.glb");
+useGLTF.preload(MODEL_URLS["Quidditch.glb"]);

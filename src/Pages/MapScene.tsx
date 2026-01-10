@@ -8,6 +8,7 @@ import { CameraRig } from "../Controls/CameraRig";
 import { PoiButtons } from "../Components/PoiButtons";
 import { DEFAULT_CAMERA_POSITION, useMapStore } from "../Store/useMapStore";
 import PoiRenderUi from "../Components/PoiRenderUi";
+import ModelErrorBoundary from "../Components/ModelErrorBoundary";
 
 type ModelName = "Hogwarts.glb" | "Quidditch.glb";
 type MapConfig = {
@@ -46,44 +47,46 @@ export const MapScene = () => {
           <Button label="Terug" onClick={handleReset} />
         </div>
       )}
-      <Canvas
-        style={{ width: "100%", height: "100%" }}
-        className="canvas h-screen"
-        camera={{
-          position: DEFAULT_CAMERA_POSITION,
-          fov: 60,
-          near: 0.1,
-          far: 100,
-        }}
-      >
-        <Suspense fallback={<CanvasLoader />}>
-          <>
-            <Environment
-              files={`/hdri/${
-                modelPath === "Hogwarts.glb" ? "hogwarts" : "quidditch"
-              }.exr`}
-              background
-            />
-            <OrbitControls enabled={!zoomedIn && !cameraGoal} makeDefault />
-            <ambientLight intensity={0.5} />
-            <directionalLight intensity={0.8} position={[10, 10, 5]} />
-            <CameraRig />
-            <Model modelName={modelPath} />
-            {mapConfig[modelPath]?.fogColor ? (
-              <fog
-                attach="fog"
-                args={[
-                  mapConfig[modelPath]?.fogColor,
-                  mapConfig[modelPath]?.fogNear,
-                  mapConfig[modelPath]?.fogFar,
-                ]}
+      <ModelErrorBoundary modelPath={`/3D-Model/${modelPath}`}>
+        <Canvas
+          style={{ width: "100%", height: "100%" }}
+          className="canvas h-screen"
+          camera={{
+            position: DEFAULT_CAMERA_POSITION,
+            fov: 60,
+            near: 0.1,
+            far: 100,
+          }}
+        >
+          <Suspense fallback={<CanvasLoader />}>
+            <>
+              <Environment
+                files={`/hdri/${
+                  modelPath === "Hogwarts.glb" ? "hogwarts" : "quidditch"
+                }.exr`}
+                background
               />
-            ) : null}
-            <PoiRenderUi />
-            {!zoomedIn && <PoiButtons />}
-          </>
-        </Suspense>
-      </Canvas>
+              <OrbitControls enabled={!zoomedIn && !cameraGoal} makeDefault />
+              <ambientLight intensity={0.5} />
+              <directionalLight intensity={0.8} position={[10, 10, 5]} />
+              <CameraRig />
+              <Model modelName={modelPath} />
+              {mapConfig[modelPath]?.fogColor ? (
+                <fog
+                  attach="fog"
+                  args={[
+                    mapConfig[modelPath]?.fogColor,
+                    mapConfig[modelPath]?.fogNear,
+                    mapConfig[modelPath]?.fogFar,
+                  ]}
+                />
+              ) : null}
+              <PoiRenderUi />
+              {!zoomedIn && <PoiButtons />}
+            </>
+          </Suspense>
+        </Canvas>
+      </ModelErrorBoundary>
     </>
   );
 };
