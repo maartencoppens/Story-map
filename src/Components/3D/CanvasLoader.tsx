@@ -7,7 +7,7 @@ export default function CanvasLoader() {
   return (
     <Html fullscreen>
       <div className="flex h-full items-center justify-center px-6">
-        <div className="flex items-center">
+        <div className="flex flex-col gap-16 items-center">
           <img
             src="/images/harry-casting-spell.png"
             alt="Harry casting a spell"

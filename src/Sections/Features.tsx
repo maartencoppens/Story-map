@@ -1,6 +1,7 @@
+import type { FC } from "react";
 import Card from "../Components/Card";
 
-const Features = () => {
+const Features: FC = () => {
   return (
     <div className="mx-auto text-center w-1/2">
       <h2 className="text-3xl font-semibold magical-glow">Magical Features</h2>

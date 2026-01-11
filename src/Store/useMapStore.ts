@@ -1,26 +1,8 @@
-import type { MapID, Vec3 } from "../types/types";
+import type { MapStore, Position } from "../types/types";
 import { create } from "zustand";
 
-type CameraGoal = { pos: Vec3; target: Vec3 };
-
-export const DEFAULT_CAMERA_POSITION: Vec3 = [-4, 2, 11];
-export const DEFAULT_CAMERA_TARGET: Vec3 = [0, 0, 0];
-
-type MapStore = {
-  mapID: MapID;
-  activePOIId: string | null;
-  cameraGoal: CameraGoal | null;
-  zoomedIn: boolean;
-  isZooming: boolean;
-  musicTrack: string;
-  setMap: (mapID: MapID) => void;
-  focusPoi: (poiId: string, goal: CameraGoal) => void;
-  setZoomed: (v: boolean) => void;
-  setZooming: (v: boolean) => void;
-  clearCameraGoal: () => void;
-  resetPoi: () => void;
-  setMusicTrack: (track: string) => void;
-};
+export const DEFAULT_CAMERA_POSITION: Position = [-4, 2, 11];
+export const DEFAULT_CAMERA_TARGET: Position = [0, 0, 0];
 
 export const useMapStore = create<MapStore>((set) => ({
   mapID: "Hogwarts",
@@ -61,7 +43,6 @@ export const useMapStore = create<MapStore>((set) => ({
       },
       zoomedIn: false,
       isZooming: true,
-      musicTrack: "/Music/Main.mp3",
     }),
   setMusicTrack: (track) => set({ musicTrack: track }),
 }));

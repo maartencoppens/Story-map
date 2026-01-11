@@ -1,7 +1,8 @@
 import LandingPage from "../Pages/LandingPage";
 import Map from "../Pages/Map";
+import type { Router } from "../types/types";
 
-const routes = [
+const routes: Router = [
   {
     path: "/",
     element: <LandingPage />,

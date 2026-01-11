@@ -1,8 +1,8 @@
 import { Html } from "@react-three/drei";
 import type { FC } from "react";
 import { useState } from "react";
-import type { Positions } from "../../../types/types";
-import Card from "../../Card";
+import type { Positions } from "../../../../types/types";
+import Card from "../../../Card";
 
 const GreatHallUI: FC = () => {
   const positions: Positions = {

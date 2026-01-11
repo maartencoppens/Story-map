@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
-import Card from "../../Card";
-import type { Positions } from "../../../types/types";
+import Card from "../../../Card";
+import type { Positions } from "../../../../types/types";
 
 const QuidditchUI: React.FC = () => {
   const positions: Positions = {
@@ -11,13 +11,15 @@ const QuidditchUI: React.FC = () => {
   return (
     <>
       <Html position={positions.image1} center>
-        <div className="pointer-events-none w-190">
-          <img
-            src="/images/quidditch-image.webp"
-            alt="Quidditch spelers"
-            className="h-auto w-190 rounded-2xl border border-white/20 shadow-[0_12px_30px_rgba(15,23,42,0.35)]"
-          />
-        </div>
+        <Card>
+          <div className="pointer-events-none w-190">
+            <img
+              src="/images/quidditch-image.webp"
+              alt="Quidditch spelers"
+              className="h-auto w-190 rounded-2xl border border-white/20 shadow-[0_12px_30px_rgba(15,23,42,0.35)]"
+            />
+          </div>
+        </Card>
       </Html>
       <Html position={positions.card1} center>
         <Card

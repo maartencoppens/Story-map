@@ -1,14 +1,13 @@
 import { Html } from "@react-three/drei";
-import {
-  CuboidCollider,
-  CylinderCollider,
-  Physics,
-  RigidBody,
-} from "@react-three/rapier";
+import { CylinderCollider, Physics, RigidBody } from "@react-three/rapier";
 import type { FC } from "react";
 import { useState } from "react";
-import Card from "../../../Card";
-import type { PaperDrop, Position, Positions } from "../../../../types/types";
+import Card from "../../../../Card";
+import type {
+  PaperDrop,
+  Position,
+  Positions,
+} from "../../../../../types/types";
 import { TriwizardCup } from "./TriwizardCupModel";
 
 const TriwizardCupUI: FC = () => {
@@ -48,7 +47,6 @@ const TriwizardCupUI: FC = () => {
           onCollisionEnter={() => setTimeout(() => setCupGlow(true), 500)}
         >
           <CylinderCollider args={[0.01, 0.1]} position={[0, 0.14, 0]} />
-          <CuboidCollider args={[0.1, 0.01, 0.1]} position={[0, 0.14, 0]} />
           <TriwizardCup glow={cupGlow} />
         </RigidBody>
         {papers.map((paper) => (

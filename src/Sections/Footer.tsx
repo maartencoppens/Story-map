@@ -1,6 +1,7 @@
+import type { FC } from "react";
 import Divider from "../Components/Divider";
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <footer className="bg-slate-950 w-full py-4 flex flex-col items-center gap-2 text-center">
       <div className="mx-auto w-1/3">

@@ -3,30 +3,33 @@ import { gsap } from "gsap";
 import { useEffect } from "react";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useMapStore } from "../Store/useMapStore";
+import type { CameraGoal, Position } from "../types/types";
 
-export function CameraRig() {
+export function CameraRig(): null {
   const { camera } = useThree();
-  const controls = useThree(
+  const orbitControls = useThree(
     (state) => state.controls as OrbitControlsImpl | null
   );
-  const goal = useMapStore((s) => s.cameraGoal);
+  const goal: CameraGoal | null = useMapStore((s) => s.cameraGoal);
+  const activePOIId: string | null = useMapStore((s) => s.activePOIId);
   const setZoomed = useMapStore((s) => s.setZoomed);
   const setZooming = useMapStore((s) => s.setZooming);
-  const activePOIId = useMapStore((s) => s.activePOIId);
   const clearCameraGoal = useMapStore((s) => s.clearCameraGoal);
 
+  const initialMinDistance = 6;
+  const initialMaxDistance = 13;
   useEffect(() => {
     if (!goal) return;
 
-    const [gx, gy, gz] = goal.pos;
-    const [tx, ty, tz] = goal.target;
+    const [gx, gy, gz]: Position = goal.pos;
+    const [tx, ty, tz]: Position = goal.target;
 
     gsap.killTweensOf(camera.position);
-    if (controls) {
-      gsap.killTweensOf(controls.target);
+    if (orbitControls) {
+      gsap.killTweensOf(orbitControls.target);
     }
 
-    const tween = gsap.to(camera.position, {
+    const tween: GSAPTween = gsap.to(camera.position, {
       x: gx,
       y: gy,
       z: gz,
@@ -34,10 +37,20 @@ export function CameraRig() {
       ease: "power2.inOut",
       onStart: () => {
         setZooming(true);
+        if (orbitControls) {
+          orbitControls.enabled = false;
+          orbitControls.minDistance = 0;
+          orbitControls.maxDistance = Infinity;
+        }
         camera.lookAt(tx, ty, tz);
       },
       onUpdate: () => camera.lookAt(tx, ty, tz),
       onComplete: () => {
+        if (!activePOIId && orbitControls) {
+          orbitControls.enabled = true;
+          orbitControls.minDistance = initialMinDistance;
+          orbitControls.maxDistance = initialMaxDistance;
+        }
         setZooming(false);
         if (activePOIId) {
           setZoomed(true);
@@ -48,28 +61,33 @@ export function CameraRig() {
       },
     });
 
-    const targetTween = controls
-      ? gsap.to(controls.target, {
+    const targetTween: GSAPTween | null = orbitControls
+      ? gsap.to(orbitControls.target, {
           x: tx,
           y: ty,
           z: tz,
           duration: 1.2,
           ease: "power2.inOut",
-          onUpdate: () => controls.update(),
+          onUpdate: () => orbitControls.update(),
         })
       : null;
 
     return () => {
       tween.kill();
       targetTween?.kill();
+      if (!activePOIId && orbitControls) {
+        orbitControls.enabled = true;
+        orbitControls.minDistance = initialMinDistance;
+        orbitControls.maxDistance = initialMaxDistance;
+      }
       setZooming(false);
     };
   }, [
     activePOIId,
     camera,
     clearCameraGoal,
-    controls,
     goal,
+    orbitControls,
     setZoomed,
     setZooming,
   ]);

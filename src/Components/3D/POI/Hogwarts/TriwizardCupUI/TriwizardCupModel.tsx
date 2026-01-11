@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import type { Position } from "../../../../types/types";
+import type { Position } from "../../../../../types/types";
 
 type TriwizardCupProps = {
   position?: Position;
@@ -10,17 +10,16 @@ type TriwizardCupProps = {
 };
 
 export function TriwizardCup({ position, glow = false }: TriwizardCupProps) {
-  const { scene } = useGLTF("/3D-Model/TriwizardCup.glb");
+  const { scene } = useGLTF("/3D-Model/triwizardCup.glb");
   const cupRef = useRef<THREE.Group>(null);
   const [active, setActive] = useState(false);
 
-  // OPTIONAL: emissive pulse
   useFrame(() => {
     if (!cupRef.current) return;
 
     const isActive = active || glow;
     cupRef.current.traverse((obj) => {
-      const material = (obj as any).material;
+      const material = obj instanceof THREE.Mesh ? obj.material : null;
       if (material?.emissive) {
         material.emissive.set("#3aa6ff");
         material.emissiveIntensity = isActive ? 20 : 0;
@@ -39,3 +38,4 @@ export function TriwizardCup({ position, glow = false }: TriwizardCupProps) {
     </group>
   );
 }
+useGLTF.preload("/3D-Model/triwizardCup.glb");

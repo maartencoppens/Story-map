@@ -1,8 +1,8 @@
-import GreatHallUI from "../Components/POI/Hogwarts/GreatHallUI";
-import GriffindorRoomUI from "../Components/POI/Hogwarts/GriffindorRoomUI";
-import OwleryTowerUI from "../Components/POI/Hogwarts/OwleryTowerUI";
-import TriwizardCupUI from "../Components/POI/Hogwarts/TriwizardCupUI/TriwizardCupUI";
-import QuidditchUI from "../Components/POI/Quidditch/QuidditchUI";
+import GreatHallUI from "../Components/3D/POI/Hogwarts/GreatHallUI";
+import GriffindorRoomUI from "../Components/3D/POI/Hogwarts/GriffindorRoomUI";
+import OwleryTowerUI from "../Components/3D/POI/Hogwarts/OwleryTowerUI";
+import TriwizardCupUI from "../Components/3D/POI/Hogwarts/TriwizardCupUI/TriwizardCupUI";
+import QuidditchUI from "../Components/3D/POI/Quidditch/QuidditchUI";
 import type { MapID, POI } from "../types/types";
 
 export const POIS: Record<MapID, POI[]> = {
@@ -15,6 +15,7 @@ export const POIS: Record<MapID, POI[]> = {
       cameraTarget: [-1.87, 0.4, 1.7],
       buttonPosition: [-2, 0.5, 2],
       uiComponent: QuidditchUI,
+      soundtrack: "/Music/Quidditch.mp3",
     },
     {
       id: "to-hogwarts",

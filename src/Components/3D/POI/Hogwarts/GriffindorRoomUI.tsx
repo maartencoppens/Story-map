@@ -1,11 +1,18 @@
 import { Html } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import type { FC } from "react";
-import { useState } from "react";
-import Card from "../../Card";
-import type { Positions } from "../../../types/types";
+import { useEffect, useRef, useState } from "react";
+import { Audio, AudioListener, AudioLoader } from "three";
+import Card from "../../../Card";
+import type { Positions } from "../../../../types/types";
 
 const GriffindorRoomUI: FC = () => {
+  const { camera } = useThree();
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const sfxRef = useRef<Audio | null>(null);
+  const listenerRef = useRef<AudioListener | null>(null);
+  const sfxReadyRef = useRef(false);
+  const hasPlayedRef = useRef(false);
 
   const positions: Positions = {
     card1: [0, 1.4, -4],
@@ -20,6 +27,50 @@ const GriffindorRoomUI: FC = () => {
   const isCorrect =
     selectedId != null &&
     options.find((o) => o.id === selectedId)?.correct === true;
+
+  useEffect(() => {
+    const listener = new AudioListener();
+    const sound = new Audio(listener);
+    const loader = new AudioLoader();
+    listenerRef.current = listener;
+    sfxRef.current = sound;
+    camera.add(listener);
+
+    loader.load(
+      "/SFX/door.mp3",
+      (buffer) => {
+        sound.setBuffer(buffer);
+        sound.setVolume(0.6);
+        sfxReadyRef.current = true;
+      },
+      undefined,
+      () => {
+        sfxReadyRef.current = false;
+      }
+    );
+
+    return () => {
+      sound.stop();
+      sfxRef.current = null;
+      camera.remove(listener);
+      listenerRef.current = null;
+      sfxReadyRef.current = false;
+      hasPlayedRef.current = false;
+    };
+  }, [camera]);
+
+  useEffect(() => {
+    if (!isCorrect || hasPlayedRef.current) return;
+    const sound = sfxRef.current;
+    const listener = listenerRef.current;
+    if (!sound || !listener || !sfxReadyRef.current) return;
+    if (listener.context.state !== "running") {
+      listener.context.resume().catch(() => {});
+    }
+    if (sound.isPlaying) sound.stop();
+    sound.play();
+    hasPlayedRef.current = true;
+  }, [isCorrect]);
 
   return (
     <>

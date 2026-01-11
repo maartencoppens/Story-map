@@ -44,7 +44,10 @@
     cursor: url("/cursor/wand-cursor.png"), auto;
   }
 
-  .magic-pointer {
+  .magic-pointer,
+  button,
+  a,
+  audio {
     cursor: url("/cursor/wand-cursor-pointer.png") 16 16, pointer;
   }
 
@@ -167,7 +170,47 @@
     background-size: 20px 20px;
   }
 
-  // Scroll hint animation
+  @keyframes candleFloat {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) translateY(0) scale(var(--scale, 1));
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(14px) scale(var(--scale, 1));
+    }
+  }
+
+  /* beetje links/rechts */
+  @keyframes candleSway {
+    0%,
+    100% {
+      margin-left: 0;
+    }
+    50% {
+      margin-left: var(--sway);
+    }
+  }
+
+  /* vlam effect */
+  @keyframes candleFlicker {
+    0%,
+    100% {
+      opacity: 0.95;
+      filter: drop-shadow(0 0 10px rgba(255, 170, 80, 0.55));
+    }
+    50% {
+      opacity: 0.78;
+      filter: drop-shadow(0 0 16px rgba(255, 170, 80, 0.75));
+    }
+  }
+
+  .candle-anim {
+    animation-name: candleFloat, candleSway, candleFlicker;
+    animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+    animation-iteration-count: infinite, infinite, infinite;
+  }
+
+  /* Scroll hint animation */
   @keyframes scroll {
     0%,
     100% {

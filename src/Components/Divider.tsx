@@ -1,15 +1,12 @@
-export default function Divider() {
+import type { JSX } from "react";
+
+export default function Divider(): JSX.Element {
   return (
     <div className="relative flex items-center w-full py-6">
-      {/* Left line */}
       <div className="flex-1 h-px bg-amber-300/40" />
-
-      {/* Center icon */}
       <div className="mx-4 text-amber-300/70">
         <SparkleIcon className="h-6 w-6" />
       </div>
-
-      {/* Right line */}
       <div className="flex-1 h-px bg-amber-300/40" />
     </div>
   );

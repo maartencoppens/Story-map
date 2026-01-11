@@ -1,8 +1,9 @@
+import type { FC } from "react";
 import Card from "../Components/Card";
 
-const Explanation = () => {
+const Explanation: FC = () => {
   return (
-    <div className="mx-auto flex flex-col items-center justify-center text-center px-4">
+    <div className="flex flex-col items-center justify-center text-center px-4">
       <img
         src="/images/castle.svg"
         alt="Castle Illustration"

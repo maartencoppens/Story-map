@@ -1,9 +1,9 @@
 import { Html } from "@react-three/drei";
-import { useState } from "react";
-import Card from "../../Card";
-import type { Positions } from "../../../types/types";
+import { useState, type FC } from "react";
+import Card from "../../../Card";
+import type { Positions } from "../../../../types/types";
 
-const OwleryTowerUI = () => {
+const OwleryTowerUI: FC = () => {
   const [open, setOpen] = useState(false);
 
   const positions: Positions = {

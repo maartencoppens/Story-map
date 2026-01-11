@@ -1,19 +1,18 @@
-export default function ScrollHint() {
+import type { JSX } from "react";
+
+export default function ScrollHint(): JSX.Element {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center">
       <div className="flex flex-col items-center gap-3 text-amber-300/75">
         <div className="text-xs tracking-[0.25em] text-amber-100/55">
           SCROLL
         </div>
-
-        {/* line + sparkle */}
         <div className="flex items-center gap-4 opacity-80">
           <span className="h-px w-24 bg-amber-300/30" />
           <Sparkle className="h-4 w-4" />
           <span className="h-px w-24 bg-amber-300/30" />
         </div>
 
-        {/* Arrows */}
         <div className="flex flex-col items-center leading-none">
           <ArrowDown className="h-5 w-5 animate-scroll" />
           <ArrowDown className="h-5 w-5 -mt-2 opacity-40 animate-scroll-delayed" />
@@ -23,7 +22,7 @@ export default function ScrollHint() {
   );
 }
 
-function ArrowDown({ className = "" }) {
+function ArrowDown({ className = "" }: { className?: string }): JSX.Element {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -42,7 +41,7 @@ function ArrowDown({ className = "" }) {
   );
 }
 
-function Sparkle({ className = "" }) {
+function Sparkle({ className = "" }: { className?: string }): JSX.Element {
   return (
     <svg
       viewBox="0 0 24 24"
