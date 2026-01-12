@@ -1,7 +1,7 @@
 import { Html } from "@react-three/drei";
 import { CylinderCollider, Physics, RigidBody } from "@react-three/rapier";
 import type { FC } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "../../../../Card";
 import type {
   PaperDrop,
@@ -19,6 +19,7 @@ const TriwizardCupUI: FC = () => {
   const [hasDropped, setHasDropped] = useState(false);
   const [cupGlow, setCupGlow] = useState(false);
   const cupPosition: Position = positions.image1 ?? [0, 0, 0];
+  const glowTimeoutRef = useRef<number | null>(null);
 
   const dropPaper = () => {
     if (hasDropped) return;
@@ -37,6 +38,14 @@ const TriwizardCupUI: FC = () => {
     setHasDropped(true);
   };
 
+  useEffect(() => {
+    return () => {
+      if (glowTimeoutRef.current != null) {
+        clearTimeout(glowTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <Physics>
@@ -44,7 +53,10 @@ const TriwizardCupUI: FC = () => {
           type="fixed"
           colliders={false}
           position={cupPosition}
-          onCollisionEnter={() => setTimeout(() => setCupGlow(true), 500)}
+          onCollisionEnter={() => {
+            if (glowTimeoutRef.current != null) return;
+            glowTimeoutRef.current = window.setTimeout(() => setCupGlow(true), 500);
+          }}
         >
           <CylinderCollider args={[0.01, 0.1]} position={[0, 0.14, 0]} />
           <TriwizardCup glow={cupGlow} />

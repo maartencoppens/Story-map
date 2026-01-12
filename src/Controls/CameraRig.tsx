@@ -1,11 +1,11 @@
 import { useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
-import { useEffect } from "react";
+import { useEffect, type FC } from "react";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useMapStore } from "../Store/useMapStore";
 import type { CameraGoal, Position } from "../types/types";
 
-export function CameraRig(): null {
+export const CameraRig: FC = () => {
   const { camera } = useThree();
   const orbitControls = useThree(
     (state) => state.controls as OrbitControlsImpl | null
@@ -93,4 +93,4 @@ export function CameraRig(): null {
   ]);
 
   return null;
-}
+};

@@ -1,5 +1,9 @@
 import type { FC, JSX, ReactNode } from "react";
 
+export type ModelErrorBoundaryProps = {
+  children: React.ReactNode;
+};
+
 export type Router = Array<{
   path: string;
   element: JSX.Element;
@@ -20,8 +24,6 @@ export type ButtonProps = {
   variant?: "primary" | "poi";
   className?: string;
   title?: string;
-  ariaLabel?: string;
-  ariaPressed?: boolean;
 };
 export type Position = [number, number, number];
 

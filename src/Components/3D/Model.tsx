@@ -1,5 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import type { MapID } from "../../types/types";
+import type { FC } from "react";
 
 const MODEL_URLS: Record<MapID, string> = {
   Hogwarts: "/3D-Model/hogwarts.glb",
@@ -10,7 +11,7 @@ const position: Record<MapID, [number, number, number]> = {
   Quidditch: [-5, 0, -6],
 };
 
-export default function Model({ mapID }: { mapID: MapID }) {
+const Model: FC<{ mapID: MapID }> = ({ mapID }) => {
   const { scene } = useGLTF(MODEL_URLS[mapID]);
 
   return (
@@ -18,7 +19,9 @@ export default function Model({ mapID }: { mapID: MapID }) {
       <primitive object={scene} scale={0.02} position={position[mapID]} />
     </group>
   );
-}
+};
+
+export default Model;
 
 useGLTF.preload(MODEL_URLS.Quidditch);
 useGLTF.preload(MODEL_URLS.Hogwarts);

@@ -31,21 +31,53 @@ const OwleryTowerUI: FC = () => {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="group relative w-96 text-left"
+          className=" relative w-96 text-left"
         >
-          <div className="absolute inset-x-6 top-6 h-8 rounded-full border border-amber-200/40 bg-[#c4a46f]" />
+          <div className="absolute inset-x-6 top-6 h-8 rounded-full border border-amber-200/40 bg-[#c4a46f] shadow-[0_10px_20px_rgba(20,10,0,0.18)]" />
+
           <div
-            className={`absolute left-6 right-6 top-8 origin-top overflow-hidden rounded-2xl border border-amber-200/40 bg-[#f6e7c3] shadow-[0_12px_30px_rgba(20,10,0,0.25)] transition-[max-height,transform,opacity] duration-700 ${
-              open ? "max-h-80 opacity-100" : "max-h-12 opacity-90"
-            }`}
+            className={`absolute left-6 right-6 top-8 origin-top overflow-hidden rounded-2xl border border-amber-200/40 
+      bg-linear-to-b from-[#fbf1d6] via-[#f6e7c3] to-[#f1dcab]
+      shadow-[0_12px_30px_rgba(20,10,0,0.25)]
+      opacity-100 transition-[max-height,transform,opacity] duration-700 ${
+        open ? "max-h-80" : "max-h-24"
+      }`}
             style={{
-              transform: open ? "translateY(0)" : "translateY(6px)",
+              transform: open ? "translateY(0)" : "translateY(4px)",
             }}
           >
-            <div className="p-6">
-              <p className="text-xs  uppercase tracking-[0.2em] text-amber-900/70">
-                Brief van Dumbledore
-              </p>
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <div className="absolute -left-24 top-0 h-full w-56 rotate-12 bg-white/20 blur-xl" />
+            </div>
+
+            <div
+              className={`p-6 transition-[padding] duration-300 ${
+                open ? "pb-6" : "pb-8"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-xs uppercase tracking-[0.22em] text-amber-900/70 pb-2">
+                  Brief van Dumbledore
+                </p>
+
+                <span
+                  className={`text-amber-900/50 transition-transform duration-500 ${
+                    open ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  ▾
+                </span>
+              </div>
+
+              <div
+                className={`mt-2 flex items-center gap-2 text-[13px] text-amber-950/65 transition-opacity duration-300 ${
+                  open ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-900/25" />
+                <span className="italic">Klik om te openen…</span>
+              </div>
+
               <div
                 className={`mt-3 text-lg italic text-amber-950/90 transition-opacity duration-300 ${
                   open ? "opacity-100" : "opacity-0"
@@ -56,7 +88,6 @@ const OwleryTowerUI: FC = () => {
               </div>
             </div>
           </div>
-          <div className="mt-3 flex items-center justify-center gap-2 text-xs text-amber-200/80"></div>
         </button>
       </Html>
     </>

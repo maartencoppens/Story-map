@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./Routes/Routes";
-import type { JSX } from "react";
+import type { FC } from "react";
 
 const browserRoutes = createBrowserRouter(routes);
 
-function App(): JSX.Element {
+const App: FC = () => {
   return <RouterProvider router={browserRoutes} />;
-}
+};
 
 export default App;

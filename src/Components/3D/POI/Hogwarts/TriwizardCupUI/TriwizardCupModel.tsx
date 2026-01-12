@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { useRef, useState } from "react";
+import { useRef, useState, type FC } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Position } from "../../../../../types/types";
 
@@ -9,7 +9,10 @@ type TriwizardCupProps = {
   glow?: boolean;
 };
 
-export function TriwizardCup({ position, glow = false }: TriwizardCupProps) {
+export const TriwizardCup: FC<TriwizardCupProps> = ({
+  position,
+  glow = false,
+}) => {
   const { scene } = useGLTF("/3D-Model/triwizardCup.glb");
   const cupRef = useRef<THREE.Group>(null);
   const [active, setActive] = useState(false);
@@ -37,5 +40,5 @@ export function TriwizardCup({ position, glow = false }: TriwizardCupProps) {
       <primitive object={scene} />
     </group>
   );
-}
+};
 useGLTF.preload("/3D-Model/triwizardCup.glb");

@@ -1,8 +1,9 @@
 import { Html } from "@react-three/drei";
+import type { FC } from "react";
 import Card from "../../../Card";
 import type { Positions } from "../../../../types/types";
 
-const QuidditchUI: React.FC = () => {
+const QuidditchUI: FC = () => {
   const positions: Positions = {
     card1: [-1.3, 0.4, 1.6],
     image1: [-2.5, 0.4, 1.8],

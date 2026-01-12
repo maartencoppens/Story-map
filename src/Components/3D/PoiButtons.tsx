@@ -3,10 +3,10 @@ import { POIS } from "../../Config/POIS";
 import { useMapStore } from "../../Store/useMapStore";
 import Button from "../Button";
 import type { MapID, Position } from "../../types/types";
+import type { FC } from "react";
 
-export function PoiButtons() {
+export const PoiButtons: FC = () => {
   const mapID: MapID = useMapStore((s) => s.mapID);
-
   const focusPoi = useMapStore((s) => s.focusPoi);
   const setMap = useMapStore((s) => s.setMap);
   const setMusicTrack = useMapStore((s) => s.setMusicTrack);
@@ -47,4 +47,4 @@ export function PoiButtons() {
       })}
     </>
   );
-}
+};

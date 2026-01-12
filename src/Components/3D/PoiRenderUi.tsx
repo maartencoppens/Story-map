@@ -1,10 +1,10 @@
-import type { JSX } from "react";
+import type { FC } from "react";
 import { POIS } from "../../Config/POIS";
 import { useMapStore } from "../../Store/useMapStore";
 import type { MapID } from "../../types/types";
 import DefaultUiComponent from "./POI/DefaultUiComponent";
 
-const PoiRenderUi = (): JSX.Element | null => {
+const PoiRenderUi: FC = () => {
   const mapId: MapID = useMapStore((s) => s.mapID);
   const activePoiId: string | null = useMapStore((s) => s.activePOIId);
   const zoomedIn: boolean = useMapStore((s) => s.zoomedIn);

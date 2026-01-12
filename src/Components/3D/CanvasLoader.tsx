@@ -1,27 +1,35 @@
 import { Html, useProgress } from "@react-three/drei";
+import type { FC } from "react";
 
-export default function CanvasLoader() {
+const CanvasLoader: FC = () => {
   const { progress } = useProgress();
   const safeProgress = Math.min(100, Math.max(0, progress));
+  const glowScale = 0.85 + safeProgress / 120;
+  const glowOpacity = 0.25 + safeProgress / 200;
+  const glowBlur = 18 + safeProgress / 3;
 
   return (
     <Html fullscreen>
-      <div className="flex h-full items-center justify-center px-6">
-        <div className="flex flex-col gap-16 items-center">
-          <img
-            src="/images/harry-casting-spell.png"
-            alt="Harry casting a spell"
-            className="w-55 select-none drop-shadow-[0_12px_30px_rgba(0,0,0,0.45)]"
-          />
-          <div className="relative -ml-2 -mt-6 h-3 w-65 max-w-[80vw] rounded-full bg-amber-50/15">
-            <div className="absolute -inset-2 rounded-full bg-red-400/25 blur-lg" />
+      <div className="flex h-full items-center justify-center bg-[#0b0f2a]">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="relative h-20 w-20">
             <div
-              className="relative h-full rounded-full bg-linear-to-r from-red-500 via-red-300 to-white shadow-[0_0_16px_rgba(248,113,113,0.9)] transition-[width] duration-200"
-              style={{ width: `${safeProgress}%` }}
+              className="absolute inset-0 rounded-full bg-[#7b61ff]"
+              style={{
+                opacity: glowOpacity,
+                filter: `blur(${glowBlur}px)`,
+                transform: `scale(${glowScale})`,
+              }}
             />
+            <div className="h-full w-full rounded-full bg-radial-[circle_at_30%_30%] from-[#c2b5ff] to-[#5f4bd9]" />
           </div>
+          <p className="text-sm tracking-wide text-white/60">
+            Loading world...
+          </p>
         </div>
       </div>
     </Html>
   );
-}
+};
+
+export default CanvasLoader;

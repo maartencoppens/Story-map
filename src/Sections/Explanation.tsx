@@ -9,7 +9,7 @@ const Explanation: FC = () => {
         alt="Castle Illustration"
         className="mx-auto w-15 mb-4"
       />
-      <h2 className="text-3xl font-semibold magical-glow">
+      <h2 className="text-3xl font-semibold magical-glow pt-9">
         A Magical Journey Awaits
       </h2>
       <Card text="This interactive 3D map brings the legendary Hogwarts School of Witchcraft and Wizardry to life in stunning detail. Navigate through iconic locations, uncover secret passages, and experience the magic that has captivated millions. Every tower, every corridor, every enchanted room is waiting to be discovered." />

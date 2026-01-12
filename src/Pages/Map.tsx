@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, type FC } from "react";
 import Header from "../Components/Header";
 import { MapScene } from "../Sections/MapScene";
 import { useMapStore } from "../Store/useMapStore";
 
-const Map = () => {
+const Map: FC = () => {
   useEffect(() => {
     const setMap = useMapStore.getState().setMap;
     const resetPoi = useMapStore.getState().resetPoi;

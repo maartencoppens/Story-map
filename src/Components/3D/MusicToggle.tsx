@@ -1,65 +1,41 @@
 import { Html } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import { Audio, AudioListener, AudioLoader } from "three";
 import { useEffect, useRef, useState, type FC } from "react";
 import Button from "../Button";
 import type { MusicToggleProps } from "../../types/types";
+import { useThreeAudio } from "./useThreeAudio";
 
 const MusicToggle: FC<MusicToggleProps> = ({ src = "/Music/Main.mp3" }) => {
-  const { camera } = useThree();
-  const listenerRef = useRef<AudioListener | null>(null);
-  const soundRef = useRef<Audio | null>(null);
+  const { ready, load, resume } = useThreeAudio();
+  const soundRef = useRef<ReturnType<typeof load> | null>(null);
   const shouldPlayRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const listener = new AudioListener();
-    const sound = new Audio(listener);
-    listenerRef.current = listener;
-    soundRef.current = sound;
-    camera.add(listener);
-    return () => {
-      sound.stop();
-      camera.remove(listener);
-      listenerRef.current = null;
-      soundRef.current = null;
-    };
-  }, [camera]);
-
-  useEffect(() => {
-    const sound = soundRef.current;
-    if (!sound) return;
-    const loader = new AudioLoader();
-    let cancelled = false;
-    sound.stop();
-    loader.load(
-      src,
-      (buffer) => {
-        if (cancelled) return;
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setVolume(0.5);
+    if (!ready) return;
+    const sound = load(src, {
+      loop: true,
+      volume: 0.5,
+      onLoad: () => {
         if (shouldPlayRef.current) {
-          sound.play();
+          sound?.play();
           setIsPlaying(true);
         }
       },
-      undefined,
-      () => {
-        if (cancelled) return;
+      onError: () => {
         shouldPlayRef.current = false;
         setIsPlaying(false);
-      }
-    );
+      },
+    });
+    soundRef.current = sound;
     return () => {
-      cancelled = true;
+      sound?.stop();
+      soundRef.current = null;
     };
-  }, [src]);
+  }, [load, ready, src]);
 
   const handleToggle = async () => {
     const sound = soundRef.current;
-    const listener = listenerRef.current;
-    if (!sound || !listener) return;
+    if (!sound) return;
 
     if (isPlaying) {
       sound.stop();
@@ -69,9 +45,7 @@ const MusicToggle: FC<MusicToggleProps> = ({ src = "/Music/Main.mp3" }) => {
     }
 
     try {
-      if (listener.context.state !== "running") {
-        await listener.context.resume();
-      }
+      await resume();
       if (sound.buffer) {
         sound.play();
         setIsPlaying(true);
@@ -85,12 +59,11 @@ const MusicToggle: FC<MusicToggleProps> = ({ src = "/Music/Main.mp3" }) => {
   };
 
   return (
-    <Html fullscreen>
+    <Html fullscreen style={{ pointerEvents: "none" }}>
       <div className="pointer-events-none absolute right-6 bottom-6 z-70">
-        <div className="pointer-events-auto">
+        <div style={{ pointerEvents: "auto" }}>
           <Button
             title={isPlaying ? "Muziek uit" : "Muziek aan"}
-            ariaLabel={isPlaying ? "Muziek uit" : "Muziek aan"}
             variant="poi"
             onClick={handleToggle}
           >

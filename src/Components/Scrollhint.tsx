@@ -1,6 +1,43 @@
-import type { JSX } from "react";
+import type { FC } from "react";
 
-export default function ScrollHint(): JSX.Element {
+const ArrowDown: FC<{ className?: string }> = ({ className = "" }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M6 10l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+const Sparkle: FC<{ className?: string }> = ({ className = "" }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M12 3l1.2 4.6L18 9l-4.8 1.4L12 15l-1.2-4.6L6 9l4.8-1.4L12 3Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+const ScrollHint: FC = () => {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center">
       <div className="flex flex-col items-center gap-3 text-amber-300/75">
@@ -20,41 +57,6 @@ export default function ScrollHint(): JSX.Element {
       </div>
     </div>
   );
-}
+};
 
-function ArrowDown({ className = "" }: { className?: string }): JSX.Element {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M6 10l6 6 6-6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function Sparkle({ className = "" }: { className?: string }): JSX.Element {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M12 3l1.2 4.6L18 9l-4.8 1.4L12 15l-1.2-4.6L6 9l4.8-1.4L12 3Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+export default ScrollHint;

@@ -1,11 +1,11 @@
-import type { JSX } from "react";
+import type { FC } from "react";
 import type { CardProps } from "../types/types";
 
-export default function Card({
+const Card: FC<CardProps> = ({
   text = "Content",
   className,
   children,
-}: CardProps): JSX.Element {
+}: CardProps) => {
   const content = children ?? (
     <p className="text-lg text-amber-50/80">{text}</p>
   );
@@ -26,4 +26,6 @@ export default function Card({
       </div>
     </section>
   );
-}
+};
+
+export default Card;

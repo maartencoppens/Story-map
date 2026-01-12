@@ -1,18 +1,6 @@
-import type { JSX } from "react";
+import type { FC } from "react";
 
-export default function Divider(): JSX.Element {
-  return (
-    <div className="relative flex items-center w-full py-6">
-      <div className="flex-1 h-px bg-amber-300/40" />
-      <div className="mx-4 text-amber-300/70">
-        <SparkleIcon className="h-6 w-6" />
-      </div>
-      <div className="flex-1 h-px bg-amber-300/40" />
-    </div>
-  );
-}
-
-function SparkleIcon({ className = "" }) {
+const SparkleIcon: FC<{ className?: string }> = ({ className = "" }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -35,4 +23,18 @@ function SparkleIcon({ className = "" }) {
       />
     </svg>
   );
-}
+};
+
+const Divider: FC = () => {
+  return (
+    <div className="relative flex items-center w-full py-6">
+      <div className="flex-1 h-px bg-amber-300/40" />
+      <div className="mx-4 text-amber-300/70">
+        <SparkleIcon className="h-6 w-6" />
+      </div>
+      <div className="flex-1 h-px bg-amber-300/40" />
+    </div>
+  );
+};
+
+export default Divider;

@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, type FC } from "react";
 import Model from "../Components/3D/Model";
 import CanvasLoader from "../Components/3D/CanvasLoader";
 import Button from "../Components/Button";
@@ -8,12 +8,12 @@ import { CameraRig } from "../Controls/CameraRig";
 import { PoiButtons } from "../Components/3D/PoiButtons";
 import { DEFAULT_CAMERA_POSITION, useMapStore } from "../Store/useMapStore";
 import PoiRenderUi from "../Components/3D/PoiRenderUi";
-import ModelErrorBoundary from "../Components/3D/ModelErrorBoundary";
 import Mist from "../Components/3D/Mist";
 import MusicToggle from "../Components/3D/MusicToggle";
 import type { CameraGoal, MapID } from "../types/types";
+import ErrorBoundary from "../Components/ErrorBoundary";
 
-export const MapScene = () => {
+export const MapScene: FC = () => {
   const mapID: MapID = useMapStore((s) => s.mapID);
   const zoomedIn: boolean = useMapStore((s) => s.zoomedIn);
   const activePOIId: string | null = useMapStore((s) => s.activePOIId);
@@ -24,14 +24,13 @@ export const MapScene = () => {
   return (
     <>
       {zoomedIn && activePOIId && (
-        <div className="absolute left-6 top-6 z-70 hover:magic-pointer">
+        <div className="absolute left-6 top-6 z-70">
           <Button label="Terug" onClick={resetPoi} />
         </div>
       )}
-      <ModelErrorBoundary>
+      <ErrorBoundary>
         <div className="h-screen w-full">
           <Canvas
-            className="canvas h-screen"
             camera={{
               position: DEFAULT_CAMERA_POSITION,
               fov: 60,
@@ -41,7 +40,7 @@ export const MapScene = () => {
           >
             <Suspense fallback={<CanvasLoader />}>
               <>
-                <Environment files={`/hdri/hogwarts.exr`} background />
+                <Environment files={`/hdri/main.exr`} background />
                 <OrbitControls
                   enabled={!zoomedIn && !cameraGoal}
                   makeDefault
@@ -62,7 +61,7 @@ export const MapScene = () => {
             <MusicToggle src={musicTrack} />
           </Canvas>
         </div>
-      </ModelErrorBoundary>
+      </ErrorBoundary>
     </>
   );
 };

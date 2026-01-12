@@ -1,17 +1,14 @@
 import { Html } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { Audio, AudioListener, AudioLoader } from "three";
 import Card from "../../../Card";
 import type { Positions } from "../../../../types/types";
+import { useThreeAudio } from "../../useThreeAudio";
 
 const GriffindorRoomUI: FC = () => {
-  const { camera } = useThree();
+  const { ready, load, resume } = useThreeAudio();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const sfxRef = useRef<Audio | null>(null);
-  const listenerRef = useRef<AudioListener | null>(null);
-  const sfxReadyRef = useRef(false);
+  const sfxRef = useRef<ReturnType<typeof load> | null>(null);
   const hasPlayedRef = useRef(false);
 
   const positions: Positions = {
@@ -29,48 +26,26 @@ const GriffindorRoomUI: FC = () => {
     options.find((o) => o.id === selectedId)?.correct === true;
 
   useEffect(() => {
-    const listener = new AudioListener();
-    const sound = new Audio(listener);
-    const loader = new AudioLoader();
-    listenerRef.current = listener;
+    if (!ready) return;
+    const sound = load("/SFX/door.mp3", { volume: 0.6 });
     sfxRef.current = sound;
-    camera.add(listener);
-
-    loader.load(
-      "/SFX/door.mp3",
-      (buffer) => {
-        sound.setBuffer(buffer);
-        sound.setVolume(0.6);
-        sfxReadyRef.current = true;
-      },
-      undefined,
-      () => {
-        sfxReadyRef.current = false;
-      }
-    );
 
     return () => {
-      sound.stop();
+      sound?.stop();
       sfxRef.current = null;
-      camera.remove(listener);
-      listenerRef.current = null;
-      sfxReadyRef.current = false;
       hasPlayedRef.current = false;
     };
-  }, [camera]);
+  }, [load, ready]);
 
   useEffect(() => {
     if (!isCorrect || hasPlayedRef.current) return;
     const sound = sfxRef.current;
-    const listener = listenerRef.current;
-    if (!sound || !listener || !sfxReadyRef.current) return;
-    if (listener.context.state !== "running") {
-      listener.context.resume().catch(() => {});
-    }
+    if (!sound || !sound.buffer) return;
+    resume().catch(() => {});
     if (sound.isPlaying) sound.stop();
     sound.play();
     hasPlayedRef.current = true;
-  }, [isCorrect]);
+  }, [isCorrect, resume]);
 
   return (
     <>
@@ -92,11 +67,7 @@ const GriffindorRoomUI: FC = () => {
         <Card>
           <div className="w-96 text-center flex flex-col items-center gap-6">
             <div className="relative w-full flex justify-center">
-              <div
-                className={
-                  "absolute inset-x-8 top-1/2 z-0 -translate-y-1/2 rounded-xl bg-black/70 p-4 text-2xl text-amber-50/90 text-center transition-opacity duration-300"
-                }
-              >
+              <div className="absolute inset-x-8 top-1/2 z-0 -translate-y-1/2 rounded-xl bg-black/70 p-4 text-2xl text-amber-50/90 text-center transition-opacity duration-300">
                 Caput Draconis betekent <strong>‘drakenkop’</strong> en opent de
                 doorgang. Een draak staat symbool voor <strong>moed</strong> en{" "}
                 <strong>kracht</strong>, eigenschappen die bij Gryffindor horen.
