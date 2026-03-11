@@ -13,7 +13,7 @@ export const TriwizardCup: FC<TriwizardCupProps> = ({
   position,
   glow = false,
 }) => {
-  const { scene } = useGLTF("/3D-Model/triwizardCup.glb");
+  const { scene } = useGLTF("/3D-Model/TriwizardCup.glb");
   const cupRef = useRef<THREE.Group>(null);
   const [active, setActive] = useState(false);
 
@@ -41,4 +41,4 @@ export const TriwizardCup: FC<TriwizardCupProps> = ({
     </group>
   );
 };
-useGLTF.preload("/3D-Model/triwizardCup.glb");
+useGLTF.preload("/3D-Model/TriwizardCup.glb");

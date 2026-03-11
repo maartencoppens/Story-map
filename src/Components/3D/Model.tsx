@@ -3,8 +3,8 @@ import type { MapID } from "../../types/types";
 import type { FC } from "react";
 
 const MODEL_URLS: Record<MapID, string> = {
-  Hogwarts: "/3D-Model/hogwarts.glb",
-  Quidditch: "/3D-Model/quidditch.glb",
+  Hogwarts: "/3D-Model/Hogwarts.glb",
+  Quidditch: "/3D-Model/Quidditch.glb",
 };
 const position: Record<MapID, [number, number, number]> = {
   Hogwarts: [-3, -0.5, -1],
